@@ -1,10 +1,7 @@
 #!/usr/bin/python
 
 import sys
-import hashlib
-
-with open('.ssakey') as keyf:
-	key = keyf.read().strip()
+import ssa
 
 while True:
 	sys.stdout.flush()
@@ -24,7 +21,7 @@ while True:
 		name = address[:x]
 		theirsha = address[x+1:y]
 
-		oursha = hashlib.sha1("%s-%s-%s\n" % (key,name,key)).hexdigest()[:6]
+		oursha = ssa.hash(name)
 
 		if theirsha == oursha:
 			print "200 OK"
